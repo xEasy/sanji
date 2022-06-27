@@ -6,6 +6,10 @@ import (
 	"github.com/bitleak/lmstfy/client"
 )
 
+const (
+	defaultConsumeTimeout = 5
+)
+
 type ifetcher interface {
 	Queue() string
 	Fetch()
@@ -105,10 +109,10 @@ func (f *fetcher) getClient() *client.LmstfyClient {
 }
 
 func (f *fetcher) tryFetchMessage() {
-	job, err := f.getClient().ConsumeFromQueues(f.manager.jobTTR, 5, f.manager.queues...)
+	job, err := f.getClient().ConsumeFromQueues(f.manager.jobTTR, defaultConsumeTimeout, f.manager.queues...)
 	if err != nil {
 		Logger.Println("fetching message ERR: ", err)
-		time.Sleep(1 * time.Second)
+		time.Sleep(time.Second * time.Duration(f.manager.captain.config.PollInterval))
 	} else {
 		if job != nil {
 			f.sendJob(job)
