@@ -61,6 +61,7 @@ func (s *Luffy) Process(queue string, job JobFunc, ttr uint32, concurrency int, 
 
 func (s *Luffy) Run() {
 	s.start()
+	go s.handleSignals()
 	s.waitForExit()
 }
 
