@@ -1,6 +1,6 @@
 ## Sanji
 
-Sanji is a Job queue base on the [Lmstfy](https://github.com/bitleak/lmstfy)
+Sanji is a simple, efficient background processing for go, base on the [Lmstfy](https://github.com/bitleak/lmstfy).
 
 #### Usage
 
